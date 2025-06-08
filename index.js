@@ -15,84 +15,85 @@ function getComputerChoice(){
     }
 
 }
-//get user choice
-   //asek th eplayer to choose form th three option
-   //assign the user choice to vairable
-function getUserChoice(){
-    let userChoice = prompt("Choose rock, paper, or scissors:").toLowerCase();
-    //check if the user choice is valid
-    if (userChoice === "rock" || userChoice === "paper" || userChoice === "scissors") {
-        return userChoice;
-    } else {
-        alert("Invalid choice! Please choose rock, paper, or scissors.");
-        return getUserChoice(); // ask again if invalid
-    }
-}
-//track score
 let humanScore=0;
 let computerScore=0;
+   //get user choice
+   //asek th eplayer to choose form th three option
+   //assign the user choice to vairable
+let score=document.querySelector('.score')
+let buttons=document.querySelectorAll('button')
+let finalResult=document.querySelector('.final')
+buttons.forEach(button=>{
+  
+    button.addEventListener('click',()=>{
+        const userChoice=button.textContent.toLowerCase()
+        let computerChoice=getComputerChoice();
+        let humanChoice=userChoice;
+        let result=playRound(humanChoice,computerChoice);
+        //display the score
+        score.innerHTML=`Round: ${result} <br>  Human Score:${humanScore} <br> Computer Score:${computerScore}`
+        if (humanScore===5){
+            finalResult.textContent='human is the winner'
+        }
+        else if(computerScore===5){
+            finalResult.textContent='computer is the winner'
+        }
+        
+        
+    })
+
+  
+}
+
+)
+//track score
+
 //compare the two  choices
 
 function playRound(humanChoice,computerChoice){
 //if the user choice and the computer choice is equal
-if (humanChoice===computerChoice){
-    alert ("It's a draw! Both chose " + humanChoice);
-    return "draw"; 
-}
-else if (humanChoice === "rock" && computerChoice === "scissors") {
-    alert("You win! Rock beats Scissors");
-    humanScore++;
-    return "user";      
-
-}
-else if (humanChoice === "rock" && computerChoice === "paper") {
-    alert("You lose! Paper beats Rock");
-    computerScore++;
-    return "computer"; 
-
-}
-else if (humanChoice === "paper" && computerChoice === "rock") {
-    alert("You win! Paper beats Rock");
-    humanScore++;
-    return "user"; 
-
-}
-else if (humanChoice === "paper" && computerChoice === "scissors") {   
-    alert("You lose! Scissors beats Paper");
-    computerScore++;
-    return "computer"; 
-
-}
-else if (humanChoice === "scissors" && computerChoice === "paper") {    
-    alert("You win! Scissors beats Paper");
-    humanScore++;
-    return "user"; 
-
-}   
-else if (humanChoice === "scissors" && computerChoice === "rock") {
-    alert("You lose! Rock beats Scissors");
-    computerScore++;
-    return "computer"; 
-
-}
-else {
-    alert("Invalid choice! Please choose rock, paper, or scissors.");
-    return "invalid"; // in case of unexpected input
-}
-}
-function playGame(){
-    for(let i=0; i<5; i++){
-        let computerChoice=getComputerChoice();
-        let humanChoice=getUserChoice();
-        let result=playRound(humanChoice,computerChoice);
-        
-        //display the score
-        console.log("Round " + (i + 1) + ": " + result);
-        console.log("Human Score: " + humanScore);
-        console.log("Computer Score: " + computerScore);
+    let result=document.querySelector('p')
+    if (humanChoice===computerChoice){
+        result.textContent= "It's a draw! Both chose " + humanChoice;
+        return "draw"; 
     }
-}  
-playGame()         
+    else if (humanChoice === "rock" && computerChoice === "scissors") {
+        result.textContent= "You win! Rock beats Scissors";
+        humanScore++;
+        return "user";      
+
+    }
+    else if (humanChoice === "rock" && computerChoice === "paper") {
+        result.textContent=  "You lose! Paper beats Rock";
+        computerScore++;
+        return "computer"; 
+
+    }
+    else if (humanChoice === "paper" && computerChoice === "rock") {
+        result.textContent= "You win! Paper beats Rock";
+        humanScore++;
+        return "user"; 
+
+    }
+    else if (humanChoice === "paper" && computerChoice === "scissors") {   
+        result.textContent= "You lose! Scissors beats Paper";
+        computerScore++;
+        return "computer"; 
+
+    }
+    else if (humanChoice === "scissors" && computerChoice === "paper") {    
+        result.textContent= "You win! Scissors beats Paper";
+        humanScore++;
+        return "user"; 
+
+    }   
+    else {
+        result.textContent= "You lose! Rock beats Scissors";
+        computerScore++;
+        return "computer"; 
+    }
+
+}
 
 
 
